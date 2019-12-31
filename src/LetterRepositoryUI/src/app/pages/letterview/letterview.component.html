@@ -1,0 +1,79 @@
+<section class="byPageSection">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="container-fluid buttonlist">
+        <div class="row">
+          <a class="btn-a" (click)="newLetter()" role="button">
+            <i class="fa fa-plus fa-lg"></i> New
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-sm-3">
+        <app-matselect placeholder="Department" [listId]="1001" [(ngModel)]="departnemtId" [InitValue]="1"
+          (SelectedValueChanged)="departnemtId = $event">
+        </app-matselect>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerfrom" placeholder="from" [(ngModel)]="frmDate">
+          <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
+          <mat-datepicker #pickerfrom></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerTo" placeholder="To" [(ngModel)]="toDate">
+          <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+          <mat-datepicker #pickerTo></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <a class="btn-a" id="btnUpd" style="color: #0a0a0a" role="button" (click)="findData()">
+          <i class="fa fa-search fa-lg"></i> Find
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="container-fluid">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <mat-form-field class="example-full-width" style="margin-top: 20px;">
+            <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+          <table class="table table-hover table-sm fixed_header" matSort (matSortChange)="sortData($event)">
+            <thead>
+              <tr>
+                <ng-container *ngFor="let col of details.Columns">
+                  <th style="font-size: 13px;font-weight: 500;" *ngIf="col.IsVisible"
+                    mat-sort-header="{{col.ColumnName}}">{{col.DisplayName}}</th>
+                </ng-container>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let rowData of dataSource">
+                <tr>
+                  <ng-container *ngFor="let col of details.Columns">
+                    <td style="font-size: 12px;" *ngIf="col.IsVisible">{{rowData | Columns:col.ColumnName}}</td>
+                  </ng-container>
+                  <td>
+                    <a class="btn-a" (click)="ViewButtonClicked(details.Url,details.FormId,rowData.Id)" role="button">
+                      <i class="fa fa-eye"></i> View</a>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div class="row pull-right">
+          <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[20,50, 100, 500,1000]"
+            [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

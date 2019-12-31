@@ -1,0 +1,41 @@
+.buttonlist {
+  padding-bottom: 0px;
+  height: 30px;
+  margin-top: 0px;
+  background-color: #ebebeb;
+  padding-left: 15px;
+}
+
+@media (min-width: 991px) {
+  .buttonlist {
+    padding-bottom: 0px;
+    height: 40px;
+    margin-top: 0px;
+    background-color: #ebebeb;
+    padding-left: 15px;
+    padding-top: 5px;
+  }
+}
+
+.fixed_header {
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.fixed_header tbody {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  max-height: 300px;
+}
+
+
+.fixed_header thead tr {
+  display: block;
+}
+
+.fixed_header th,
+.fixed_header td {
+  text-align: left;
+  width: 1%;
+}

@@ -1,0 +1,185 @@
+<div class="container main-content">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Letter Summery">
+      <div class="buttonlist">
+        <div class="row">
+          <a class="btn-a" *ngIf="letter.Id != 0 || isNewLetter" (click)="back()" style="color: #0a0a0a;" role="button">
+            <i class="fa fa-arrow-circle-left fa-lg"> Back</i>
+          </a>
+          <a class="btn-a" *ngIf="!isNewLetter" id="btnNew" (click)="newLetter()" role="button">
+            <i class="fa fa-plus fa-lg"></i> New
+          </a>
+          <a class="btn-a" id="btnUpd" style="color: #0a0a0a" (click)="documentEditForm.ngSubmit.emit()" role="button">
+            <i class="fa fa-save fa-lg"></i> Update
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <fieldset>
+            <form [formGroup]='frmLetter' (ngSubmit)="updateLetter()" #documentEditForm="ngForm">
+              <mat-tab-group dynamicHeight>
+                <mat-tab label="Summery">
+                  <div class="card" style="margin-top: 10px;">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <app-matselect [listId]="1001" [isaParameter]="false" [InitValue]="letter.DepartmentId"
+                                placeholder="Department" (SelectedValueChanged)="letter.DepartmentId = $event"
+                                formControlName="DepartmentId" [(ngModel)]="letter.DepartmentId">
+                              </app-matselect>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <app-matselect [listId]="2" [isaParameter]="true" [InitValue]="letter.LetterCategory"
+                                placeholder="Letter Category" (SelectedValueChanged)="letter.LetterCategory = $event"
+                                formControlName="LetterCategory" [(ngModel)]="letter.LetterCategory">
+                              </app-matselect>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="LetterRefNO" type="text" name="LetterRefNO"
+                                  formControlName="LetterRefNO" [(ngModel)]="letter.LetterRefNO"
+                                  [errorStateMatcher]="matcher" required>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Letter Code" type="text" name="LetterCode"
+                                  formControlName="LetterCode" [(ngModel)]="letter.LetterCode">
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <app-matselect [listId]="1003" [InitValue]="letter.ReferenceLetterId"
+                                placeholder="Reference Letter"
+                                (SelectedValueChanged)="letter.ReferenceLetterId = $event"
+                                formControlName="ReferenceLetter" [(ngModel)]="letter.ReferenceLetterId">
+                              </app-matselect>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field class="example-full-width">
+                                <textarea matInput placeholder="To Whom" formControlName="ToWhom" name="ToWhom"
+                                  [(ngModel)]="letter.ToWhom" [errorStateMatcher]="matcher" required></textarea>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field class="example-full-width">
+                                <textarea matInput placeholder="Subject" rows="5" formControlName="Subject"
+                                  [(ngModel)]="letter.Subject" name="Subject"></textarea>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="row mat-radio-group">
+                            <div class="col-md-12">
+                              <mat-radio-group formControlName="SendOrReceive" name="SendOrReceive"
+                                [(ngModel)]="letter.SendOrReceive">
+                                <mat-radio-button [checked]="letter.SendOrReceive == 1" style="margin-right: 10px;"
+                                  value="1">Send </mat-radio-button>
+                                <mat-radio-button value="2" [checked]="letter.SendOrReceive == 2">Receive
+                                </mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field>
+                                <input matInput [matDatepicker]="picker" name="SendOrReceiveDate"
+                                  formControlName="SendOrReceiveDate" [(ngModel)]="letter.SendOrReceiveDate"
+                                  placeholder="Send/Receive Date" [value]="letter.SendOrReceiveDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi #picker></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <app-matselect [listId]="1" [isaParameter]="true" [InitValue]="letter.PostType"
+                                placeholder="Post type" (SelectedValueChanged)="letter.PostType = $event"
+                                formControlName="PostType" [(ngModel)]="letter.PostType">
+                              </app-matselect>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field class="example-full-width">
+                                <textarea matInput placeholder="From Address" rows="5" formControlName="FromAddress"
+                                  [(ngModel)]="letter.FromAddress" name="FromAddress" [errorStateMatcher]="matcher"
+                                  required></textarea>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field class="example-full-width">
+                                <textarea matInput placeholder="To Address" rows="5" formControlName="ToAddress"
+                                  [(ngModel)]="letter.ToAddress" [errorStateMatcher]="matcher" name="ToAddress"
+                                  required></textarea>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Letter Contant">
+                  <div class="row h-100">
+                    <div class="col-md-12">
+                      <div class="card h-100 mt-0">
+                        <div class="card-header bg-dark">
+                          <h3 class="card-title" style="color: #ffffff">Letter contant/ Description</h3>
+                        </div>
+                        <div class="card-body" style="background-color: rgb(63, 62, 62);">
+                          <div class="row h-75">
+                            <div class="contentEditable" contentEditable="true" placeholder="Enter text here..."
+                              [innerText]="letter.LetterContant" (input)="this.letterContant = $event.target.innerText">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </form>
+          </fieldset>
+        </div>
+      </div>
+    </mat-tab>
+    <!--mat-tab label="Attachments" [disabled]="!isNewLetter">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab-->
+    <mat-tab label="History" [disabled]="isNewLetter">
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

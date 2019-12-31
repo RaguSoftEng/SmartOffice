@@ -1,0 +1,13 @@
+<mat-form-field>
+  <mat-select [formControl]="frmctrlMatselect" placeholder="{{placeholder}}" (selectionChange)="OnValueChanged()"
+    #selectId>
+    <mat-option>
+      <ngx-mat-select-search [formControl]="frmCtrlFilterCtrl" [noEntriesFoundLabel]="'No matching results found'">
+      </ngx-mat-select-search>
+    </mat-option>
+
+    <mat-option *ngFor="let Option of filteredoptions | async" [value]="Option.Id">
+      {{Option.Value}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

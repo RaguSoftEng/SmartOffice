@@ -1,0 +1,14 @@
+.list-group>li {
+  border-bottom: 1px solid #94a1b7;
+  padding-left: 0px;
+  padding-bottom: 1px;
+  padding-right: 2px;
+}
+
+#tab-group {
+  height: 100%;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+  height: 100%;
+}

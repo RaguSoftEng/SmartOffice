@@ -1,0 +1,84 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/LetterRepository.api.csproj": {}
+  },
+  "projects": {
+    "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/LetterRepository.api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/LetterRepository.api.csproj",
+        "projectName": "LetterRepository.api",
+        "projectPath": "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/LetterRepository.api.csproj",
+        "packagesPath": "/home/ragudev/.nuget/packages/",
+        "outputPath": "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/ragudev/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.7.0, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.7.0, )"
+            },
+            "MongoDB.Driver.Core": {
+              "target": "Package",
+              "version": "[2.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

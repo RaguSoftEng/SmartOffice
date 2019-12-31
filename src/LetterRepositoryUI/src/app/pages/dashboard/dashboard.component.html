@@ -1,0 +1,150 @@
+<div class="container main-content h-100" style="overflow: hidden">
+  <div class="pb-2 mt-4 mb-2 border-bottom border-success" style="height: 5%;">
+    <div class="row">
+      <div class="col-sm-5" style="font-size: xx-large;">
+        Wel come {{CurrentUser.DisplayName}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="height: 95%;">
+    <div class="col-sm-12 h-100">
+      <div class="row h-100 pr-3">
+        <div class="col-sm-6 h-100">
+          <div class="card ml-2" style="height: 90%;border: 1px solid #53af50 !important;">
+            <div class="card-header" style="height: 10%">
+              <h5 class="card-title">Pending Works</h5>
+            </div>
+            <div class="card-body ml-2" style="height: 90%;">
+              <div class="row" style="height: 25%">
+                <div class="col-sm-12">
+                  <app-matselect placeholder="Department" [listId]="1001" [(ngModel)]="pendingWorks.DepartmentId"
+                    (SelectedValueChanged)="getPendingWorks($event)" [defaultOn]="true" [hideDefaultAfterSelect]="true"
+                    default="----- Select Department -----">
+                  </app-matselect>
+                </div>
+                <div class="col-sm-12">
+                  <mat-form-field class="example-full-width" style="margin-top: 20px;">
+                    <input matInput type="text" (keyup)="applyFilter($event.target.value)"
+                      placeholder="Filter by Token">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row" style="height: 75%">
+                <div class="col-sm-12">
+                  <table class="table table-hover table-sm fixed_header">
+                    <thead>
+                      <tr>
+                        <th style="width: 1%">#</th>
+                        <th style="font-size: 13px;font-weight: 500;width:4%"> Visitors Token</th>
+                        <th style="width: 1%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let work of pendingWorks.filteredData; let last = last;let i = index;">
+                        <tr>
+                          <td style="width: 1%">{{i+1}}</td>
+                          <td style="font-size: 12px;width:4%">
+                            {{work.VisitorToken}}
+                          </td>
+                          <td style="text-align: right;width: 1%">
+                            <a class="btn-a" role="button" (click)="updateWorkStatus(work.Id)">
+                              <i class="fa fa-check"></i> Finished
+                            </a>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 h-100" style="overflow-y: scroll">
+          <div class="row h-100">
+            <div class="card" style="height: 90%;border: 1px solid #53af50 !important;">
+              <div class="card-body h-100">
+                <div class="row" style="height: 75%">
+                  <div [chart]="DepVisCnt.chart" class="col-sm-12 h-100"></div>
+                </div>
+                <div class="row" style="height: 25%">
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <app-matselect placeholder="Department" [listId]="1001" [(ngModel)]="DepVisCnt.DepartmentId"
+                          [defaultOn]="true" (SelectedValueChanged)="DepVisCnt.DepartmentId =$event"
+                          [hideDefaultAfterSelect]="false">
+                        </app-matselect>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <mat-form-field>
+                          <input matInput [matDatepicker]="pickerfrom" placeholder="from"
+                            [(ngModel)]="DepVisCnt.FromDate">
+                          <mat-datepicker-toggle matSuffix [for]="pickerfrom">
+                          </mat-datepicker-toggle>
+                          <mat-datepicker #pickerfrom></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-6">
+                        <mat-form-field>
+                          <input matInput [matDatepicker]="pickerTo" placeholder="To" [(ngModel)]="DepVisCnt.EndDate">
+                          <mat-datepicker-toggle matSuffix [for]="pickerTo">
+                          </mat-datepicker-toggle>
+                          <mat-datepicker #pickerTo></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-9">
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                          [(ngModel)]="DepVisCnt.FilterType">
+                          <mat-radio-button class="example-radio-button" [value]="1">
+                            Yearly
+                          </mat-radio-button>
+                          <mat-radio-button class="example-radio-button" [value]="2">
+                            Monthly
+                          </mat-radio-button>
+                          <mat-radio-button class="example-radio-button" [value]="3">
+                            Daily
+                          </mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                      <div class="col-sm-3">
+                        <a class="btn-a" style="color: #0a0a0a" role="button"
+                          (click)="getDepartmentWiseVisitorsCount()">
+                          <i class="fa fa-refresh fa-lg"></i> Refresh
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row h-100">
+            <div class="card" style="height: 90%;border: 1px solid #53af50 !important;">
+              <div class="card-body h-100">
+
+                <div class="row" style="height: 95%">
+                  <div [chart]="DepPendWorks.chart" class="col-sm-12 h-100"></div>
+                </div>
+                <div class="row" style="height: 5%">
+                  <div class="col-sm-3 offset-9">
+                    <a class="btn-a" style="color: #0a0a0a" role="button"
+                      (click)="getDepartmentWisePendingWorksCount()">
+                      <i class="fa fa-refresh fa-lg"></i> Refresh
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

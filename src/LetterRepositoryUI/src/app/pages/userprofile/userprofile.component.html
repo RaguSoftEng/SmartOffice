@@ -1,0 +1,117 @@
+<div class="container main-content">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="User">
+      <div class="buttonlist">
+        <div class="row">
+          <a class="btn-a" *ngIf="user.Id != 0 || isNewUser" (click)="back()" style="color: #0a0a0a;" role="button">
+            <i class="fa fa-arrow-circle-left fa-lg"> Back</i>
+          </a>
+          <a class="btn-a" *ngIf="!isNewUser" id="btnNew" (click)="newUser()" role="button">
+            <i class="fa fa-plus fa-lg"></i> New
+          </a>
+          <a class="btn-a" id="btnUpd" style="color: #0a0a0a" (click)="documentEditForm.ngSubmit.emit()" role="button">
+            <i class="fa fa-save fa-lg"></i> Update
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <fieldset>
+                <form [formGroup]='frmUserProfile' (ngSubmit)="updateUser()" #documentEditForm="ngForm">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <app-matselect [listId]="4" [isaParameter]="true" [InitValue]="user.Title" placeholder="Title"
+                            [(ngModel)]="user.Title" (SelectedValueChanged)="user.Title = $event"
+                            formControlName="Title">
+                          </app-matselect>
+                        </div>
+                        <div class="col-md-9">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Full name" type="text" name="FullName"
+                              formControlName="FullName" [(ngModel)]="user.FullName" [errorStateMatcher]="matcher"
+                              required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Display name" type="text" name="DisplayName"
+                              formControlName="DisplayName" [(ngModel)]="user.DisplayName" [errorStateMatcher]="matcher"
+                              required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <app-matselect [listId]="1001" [InitValue]="user.DepartmentId" placeholder="Department"
+                            (SelectedValueChanged)="user.DepartmentId = $event" formControlName="DepartmentId"
+                            [(ngModel)]="user.DepartmentId">
+                          </app-matselect>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <app-matselect [listId]="3" [isaParameter]="true" [InitValue]="user.UserLevel"
+                            placeholder="User level" (SelectedValueChanged)="user.UserLevel = $event"
+                            formControlName="UserLevel" [(ngModel)]="user.UserLevel">
+                          </app-matselect>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Email" type="text" name="Email" formControlName="Email"
+                              [(ngModel)]="user.Email" [errorStateMatcher]="matcher" required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Username" type="text" name="UserName"
+                              formControlName="UserName" [(ngModel)]="user.UserName" [errorStateMatcher]="matcher"
+                              required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <section *ngIf="isNewUser">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Password" type="password" name="Password"
+                                [(ngModel)]="user.Password" formControlName="Password">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Confirm password" type="password" name="ConfirmPassword"
+                                [(ngModel)]="user.ConfirmPassword" formControlName="ConfirmPassword"
+                                [errorStateMatcher]="matcher">
+                              <mat-error *ngIf="frmUserProfile.hasError('notSame')">
+                                Passwords do not match
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </form>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

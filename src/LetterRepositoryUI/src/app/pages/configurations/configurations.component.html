@@ -1,0 +1,66 @@
+<div class="container main-content">
+  <mat-tab-group id="tab-group">
+    <mat-tab label="Parameters">
+      <div class="card" style="margin-top: 5px;height: 93%">
+        <div class="card-body" style="padding-top: 0px;height: 100%">
+          <div class="row" style="height: 100%;">
+            <div class="col-md-3" style="border-right: 1px solid #eeeeee;">
+              <ul class="list-group list-group-flush">
+                <ng-container *ngFor="let list of listArray">
+                  <li class="list-group-item" (click)="loadListvalues(list.ListId)">
+                    {{list.Description}}
+                    <i class="fa fa-arrow-right float-right"></i>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+            <div class="col-md-9" style="padding: 0;">
+              <div class="card" style="margin-top: 0;height: 100%">
+                <div class="card-header" style="border-bottom: 1px solid #eeeeee;">
+                  <h5 class="card-title" style="font-weight: bold;">{{currentList.Description}}</h5>
+                </div>
+                <div class="card-body" style="height: 100%;">
+                  <div class="row" style="height: 90%">
+                    <table class="table table-hover table-sm fixed_header">
+                      <thead>
+                        <tr>
+                          <th style="width: 6%">#</th>
+                          <th style="font-size: 13px;font-weight: 500;width:70%">Parameter value</th>
+                          <th style="width: 24%"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let listvalue of listvalueArray; let last = last;let i = index;">
+                          <tr>
+                            <td>{{i+1}}</td>
+                            <td style="font-size: 12px;">
+                              <input [(ngModel)]="listvalueArray[i].Value" class="form-control" type="text"
+                                [disabled]="!listvalueArray[i].IsEdit" />
+                            </td>
+                            <td style="text-align: right">
+                              <a class="btn-a" *ngIf="listvalueArray[i].IsEdit"
+                                (click)="updateListValue(listvalueArray[i])" role="button">
+                                <i class="fa fa-save"></i> Save
+                              </a>
+                              <a class="btn-a" *ngIf="!listvalueArray[i].IsEdit"
+                                (click)="listvalueArray[i].IsEdit = true" role="button">
+                                <i class="fa fa-edit"></i> Edit
+                              </a>
+                              <a class="btn-a" *ngIf="last" role="button" (click)="addNewRow(listvalueArray[i])">
+                                <i class="fa fa-plus fa-lg"></i> Add
+                              </a>
+                            </td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

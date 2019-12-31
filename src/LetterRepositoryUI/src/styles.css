@@ -1,0 +1,180 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(assets/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(assets/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
+       url(assets/iconfont/MaterialIcons-Regular.woff) format('woff'),
+       url(assets/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+ font-family: 'Material Icons';
+ font-weight: normal;
+ font-style: normal;
+ font-size: 24px;  /* Preferred icon size */
+ display: inline-block;
+ line-height: 1;
+ text-transform: none;
+ letter-spacing: normal;
+ word-wrap: normal;
+ white-space: nowrap;
+ direction: ltr;
+
+ /* Support for all WebKit browsers. */
+ -webkit-font-smoothing: antialiased;
+ /* Support for Safari and Chrome. */
+ text-rendering: optimizeLegibility;
+
+ /* Support for Firefox. */
+ -moz-osx-font-smoothing: grayscale;
+
+ /* Support for IE. */
+ font-feature-settings: 'liga';
+}
+
+
+.btn-a {
+  font-weight: 500;
+  font-size: 12px;
+  display: inline-block;
+  text-decoration: none;
+  position: relative;
+  color: #0a0a0a !important;
+  margin-left: 0.4em;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.4em 0.8em;
+  line-height: 16px;
+}
+
+.btn-a-disabled {
+  font-weight: 500;
+  font-size: 12px;
+  display: inline-block;
+  text-decoration: none;
+  position: relative;
+  color: #0a0a0a !important;
+  margin-left: 0.4em;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.4em 0.8em;
+  line-height: 16px;
+  pointer-events: none;
+  cursor: default;
+  opacity: .65;
+}
+
+.btn-a:hover {
+  /* border: 1px solid #555;*/
+  background-color: #555 !important;
+  color: #fafafa !important;
+}
+
+
+.buttonlist {
+  padding-bottom: 0px;
+  height: 30px;
+  margin-top: 0px;
+  background-color: #ebebeb;
+  padding-left: 15px;
+}
+
+@media (min-width: 991px) {
+  .buttonlist {
+    padding-bottom: 0px;
+    height: 40px;
+    margin-top: 0px;
+    background-color: #ebebeb;
+    padding-left: 15px;
+    padding-top: 5px;
+  }
+}
+
+::ng-deep .mat-input-element {
+  color: rgb(10, 10, 10);
+  font-family: 'Segoe UI',
+    Tahoma,
+    'Lucida Grande' !important;
+}
+
+::ng-deep .mat-input-element:disabled {
+  color: rgb(10, 10, 10) !important
+}
+
+::ng-deep .mat-form-field-placeholder {
+
+  color: red;
+}
+
+::ng-deep .mat-focused .mat-form-field-placeholder {
+
+  color: red;
+}
+
+.mat-checkbox-label {
+  color: rgb(10, 10, 10) !important
+}
+
+.mat-radio-button~.mat-radio-button {
+  margin-left: 16px;
+}
+
+.mat-radio-label-content {
+  color: black !important;
+}
+
+.sidenav-open {
+  /* left:0 !important;*/
+  width: 50px !important;
+  transition: 0.5s !important;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a:focus,
+.dropdown-menu a:active {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
+  background-color: #9c27b0;
+  color: #FFFFFF;
+}
+
+body {
+  font-family: 'Segoe UI',
+    Tahoma,
+    'Lucida Grande' !important;
+}
+
+.byPageSection {
+  margin-top: 35px;
+}
+
+.jqx-widget-header-material {
+  color: #0a0a0a !important;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  display: block;
+
+}
+
+.contentEditable {
+  color: black;
+  height: 50vh;
+  width: 100%;
+  overflow-y: scroll;
+  background-color: #ffff;
+}
+
+.mat-radio-group {
+  margin-bottom: 17px;
+}

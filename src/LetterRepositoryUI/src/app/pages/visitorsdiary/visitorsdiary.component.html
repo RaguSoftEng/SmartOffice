@@ -1,0 +1,125 @@
+<div class="container main-content">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Visitor">
+      <div class="buttonlist">
+        <div class="row">
+          <a class="btn-a" *ngIf="visitor.Id != 0 || isNewVisitor" (click)="back()" style="color: #0a0a0a;"
+            role="button">
+            <i class="fa fa-arrow-circle-left fa-lg"> Back</i>
+          </a>
+          <a class="btn-a" *ngIf="!isNewVisitor" id="btnNew" (click)="newVisitor()" role="button">
+            <i class="fa fa-plus fa-lg"></i> New
+          </a>
+          <a class="btn-a" id="btnUpd" style="color: #0a0a0a" (click)="documentEditForm.ngSubmit.emit()" role="button">
+            <i class="fa fa-save fa-lg"></i> Update
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <fieldset>
+                <form [formGroup]='frmVisitor' (ngSubmit)="updateVisitor()" #documentEditForm="ngForm">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <app-matselect [listId]="4" [isaParameter]="true" [InitValue]="visitor.Title"
+                            placeholder="Title" [(ngModel)]="visitor.Title"
+                            (SelectedValueChanged)="visitor.Title = $event" formControlName="Title">
+                          </app-matselect>
+                        </div>
+                        <div class="col-md-9">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Full name" type="text" name="FullName"
+                              formControlName="FullName" [(ngModel)]="visitor.FullName" [errorStateMatcher]="matcher"
+                              required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Nic No" type="text" name="NicNo" formControlName="NicNo"
+                              [(ngModel)]="visitor.NicNo">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Contact No" type="text" name="ContactNo"
+                              formControlName="ContactNo" [(ngModel)]="visitor.ContactNo">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <textarea matInput placeholder="Address" formControlName="Address" name="Address"
+                              [(ngModel)]="visitor.Address" rows="4"></textarea>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <textarea matInput placeholder="Purpose" formControlName="Purpose" name="Purpose"
+                              [(ngModel)]="visitor.Purpose" rows="4"></textarea>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <app-matselect [listId]="1001" [InitValue]="visitor.DepartmentId" placeholder="Department"
+                            (SelectedValueChanged)="visitor.DepartmentId = $event" formControlName="DepartmentId"
+                            [(ngModel)]="visitor.DepartmentId">
+                          </app-matselect>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field>
+                            <input matInput [matDatepicker]="pickerTo" placeholder="Visit Date"
+                              [(ngModel)]="visitor.VisitDate" formControlName="VisitDate" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerTo></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Visitor Token" type="text" name="VisitorToken"
+                              formControlName="VisitorToken" [(ngModel)]="visitor.VisitorToken">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <mat-checkbox class="example-margin" formControlName="IsWorkDone"
+                            [(ngModel)]="visitor.IsWorkDone"
+                            (change)="visitor.Progress = visitor.IsWorkDone ?'Finished':'Pending'">Is Work Done
+                          </mat-checkbox>
+                        </div>
+                        <div class="col-md-7">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Progress" type="text" name="Progress"
+                              formControlName="Progress" [(ngModel)]="visitor.Progress">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

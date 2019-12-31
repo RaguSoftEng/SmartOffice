@@ -1,0 +1,65 @@
+<div class="container main-content">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Department">
+      <div class="buttonlist">
+        <div class="row">
+          <a class="btn-a" *ngIf="department.Id != 0 || isNewDepartment" (click)="back()" style="color: #0a0a0a;"
+            role="button">
+            <i class="fa fa-arrow-circle-left fa-lg"> Back</i>
+          </a>
+          <a class="btn-a" *ngIf="!isNewDepartment" id="btnNew" (click)="newDepartment()" role="button">
+            <i class="fa fa-plus fa-lg"></i> New
+          </a>
+          <a class="btn-a" id="btnUpd" style="color: #0a0a0a" (click)="updateDepartment()" role="button">
+            <i class="fa fa-save fa-lg"></i> Update
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11">
+          <div class="card">
+            <div class="card-body">
+              <fieldset>
+                <form [formGroup]='frmDepartment'>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Department code" formControlName="Departmentcode"
+                              name="DepartmentCode" [(ngModel)]="department.DepartmentCode"
+                              [errorStateMatcher]="matcher" required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Department name" type="text" formControlName="DepartmentName"
+                              name="DepartmentName" [(ngModel)]="department.DepartmentName"
+                              [errorStateMatcher]="matcher" required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field class="example-full-width">
+                        <textarea matInput placeholder="Extended Description" formControlName="ExtendedDescription"
+                          name="ExtendedDescription" [(ngModel)]="department.ExtendedDescription"
+                          [errorStateMatcher]="matcher" required rows="4"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

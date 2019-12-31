@@ -1,0 +1,48 @@
+.navbar-toggle-side {
+  position: relative;
+  float: left;
+  /*padding: 12px 8px 0px 0px;*/
+  margin-top: 0px;
+  margin-right: 10px;
+  margin-bottom: 0px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.logo {
+  padding: 11px 0px;
+  margin: 0;
+  display: block;
+  position: relative;
+  z-index: 4;
+}
+
+.logo .simple-text {
+  text-transform: uppercase;
+  padding: 5px 0px;
+  display: inline-block;
+  font-size: 18px;
+  color: #fff;
+  white-space: nowrap;
+  font-weight: 400;
+  line-height: 5px;
+  overflow: hidden;
+  text-align: center;
+  display: block;
+}
+
+.logo-img {
+  width: 25px;
+  display: block;
+  max-height: 25px;
+  margin-left: 10px;
+  margin-right: 120px;
+}
+
+.logo-img img {
+  width: 32px;
+  top: 2px;
+  position: absolute;
+}
