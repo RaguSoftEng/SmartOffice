@@ -6,6 +6,7 @@ import { Toast } from '../../common/models/toast';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { PrinterService } from 'app/common/services/printer.service';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,7 +33,7 @@ export class VisitorsdiaryComponent implements OnInit {
 
   constructor(private serv: CommonService, private router: Router
     , private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder, private printer:PrinterService) {
     this.visitor = new Visitor();
     this.toast = new Toast();
     this.frmVisitor = this.formBuilder.group(
@@ -119,5 +120,10 @@ export class VisitorsdiaryComponent implements OnInit {
 
   back(): void {
     this.router.navigateByUrl('/visitorsdiary/1004');
+  }
+
+  printToken(){
+    this.printer.requestUsb();
+    this.printer.print();
   }
 }

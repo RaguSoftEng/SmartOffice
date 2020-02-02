@@ -30,6 +30,8 @@ export function highchartsModules() {
   return [stock, more, exporting];
 }
 
+import { ThermalPrintModule } from 'ng-thermal-print';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ export function highchartsModules() {
     ReactiveFormsModule,
     MaterialModule,
     NgxMatSelectSearchModule,
-    ChartModule
+    ChartModule,
+    ThermalPrintModule
   ],
   declarations: [
     UserprofileComponent,
