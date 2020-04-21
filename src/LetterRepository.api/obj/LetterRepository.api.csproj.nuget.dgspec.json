@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/LetterRepository.api.csproj": {}
+    "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj": {}
   },
   "projects": {
-    "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/LetterRepository.api.csproj": {
+    "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/LetterRepository.api.csproj",
+        "projectUniqueName": "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj",
         "projectName": "LetterRepository.api",
-        "projectPath": "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/LetterRepository.api.csproj",
-        "packagesPath": "/home/ragudev/.nuget/packages/",
-        "outputPath": "/home/ragudev/RaguDev/Projects/LetterRepository/src/LetterRepository.api/obj/",
+        "projectPath": "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj",
+        "packagesPath": "C:\\Users\\raguv\\.nuget\\packages\\",
+        "outputPath": "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/ragudev/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\raguv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -76,7 +78,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

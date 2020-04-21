@@ -122,8 +122,27 @@ export class VisitorsdiaryComponent implements OnInit {
     this.router.navigateByUrl('/visitorsdiary/1004');
   }
 
-  printToken(){
-    this.printer.requestUsb();
-    this.printer.print();
+  printToken() {
+    /*this.printer.requestUsb();
+    this.printer.print();*/
+    let printContents, popupWin;
+    printContents = this.visitor.VisitorToken;
+    popupWin = window.open('', '_blank', 'top=50%,left=50%,height=200,width=200');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print tab</title>
+          <style>
+          </style>
+        </head>
+        <body onload="window.print();window.close()">
+          <div style="width: 80px;height: 20px;align-items: center;text-align: center;">
+            ${printContents}
+          </div>    
+        </body>
+      </html>`
+    );
+    popupWin.document.close();
   }
 }
