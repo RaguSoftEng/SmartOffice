@@ -28,6 +28,7 @@ export class DepartmentComponent implements OnInit {
   toast: Toast;
   frmDepartment: FormGroup;
   matcher = new MyErrorStateMatcher();
+  listvalueArray: any[] = [];
 
   constructor(private serv: CommonService, private router: Router
     , private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
@@ -70,6 +71,7 @@ export class DepartmentComponent implements OnInit {
       this.serv.httpGetData(1001, id)
         .subscribe((data) => {
           this.department = data;
+          this.loadListvalues();
         },
           (error) => {
             this.toast.Danger({ message: error });
@@ -107,6 +109,60 @@ export class DepartmentComponent implements OnInit {
 
   back(): void {
     this.router.navigateByUrl('/department/1001');
+  }
+
+  loadListvalues() {
+    this.listvalueArray = [];
+    const url = `Department/purpose/${this.department.Id}`;
+    this.serv.httpCllaUrl(url)
+      .subscribe((data) => {
+        if (data.length > 0) {
+          data.forEach(e => {
+            this.listvalueArray.push({
+              Id: e.Id,
+              Value: e.Purpose,
+              IsEdit: false
+            });
+          });
+        } else {
+          this.listvalueArray.push({
+            Id: 0,
+            Value: '',
+            IsEdit: true
+          });
+        }
+      },
+        (error) => {
+          this.toast.Danger({ message: error });
+        }
+      );
+  }
+
+  updateListValue(obj: any) {
+    if (obj.Value != '') {
+      this.serv.httpPost({
+        DepartmentId: this.department.Id,
+        Id: obj.Id,
+        Purpose: obj.Value
+      }, 1006, obj.Id)
+        .subscribe((data) => {
+          this.toast.Success({ message: 'Successfully updated' });
+          this.loadListvalues();
+        },
+          (error) => {
+            this.toast.Danger({ message: error });
+          });
+    }
+  }
+
+  addNewRow(obj: any) {
+    if (obj.Value != '') {
+      this.listvalueArray.push({
+        Id: 0,
+        Value: '',
+        IsEdit: true
+      });
+    }
   }
 
 }

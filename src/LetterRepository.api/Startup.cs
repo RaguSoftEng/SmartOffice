@@ -31,6 +31,7 @@ namespace LetterRepository.api {
                 .AddTransient<IDepartmentRepository, DepartmentRepository> ()
                 .AddTransient<ICommonRepository, CommonRepository> ()
                 .AddTransient<ILettersRepository, LettersRepository> ()
+                .AddTransient<IVisitRepository, VisitRepository> ()
                 .AddTransient<IVisitorRepository, VisitorRepository> ();
 
             var appSettingsSection = Configuration.GetSection ("AppSettings");

@@ -12,8 +12,8 @@
     <div class="row" style="margin-top: 20px;">
       <div class="col-sm-6">
         <app-matselect placeholder="Department" [listId]="1001" [(ngModel)]="departnemtId"
-          (SelectedValueChanged)="departnemtId = $event" [defaultOn]="true" [hideDefaultAfterSelect]="true"
-          default="----- Select Department -----">
+          (SelectedValueChanged)="departnemtId = $event" [defaultOn]="true" [hideDefaultAfterSelect]="false"
+          default="----- All Department -----">
         </app-matselect>
       </div>
       <div class="col-sm-2">

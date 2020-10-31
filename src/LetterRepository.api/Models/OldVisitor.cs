@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace LetterRepository.api.Models
 {
-    public class Visitor
+    public class OldVisitor
     {
         [BsonId]
         public ObjectId ObId { get; set; }
@@ -14,7 +14,14 @@ namespace LetterRepository.api.Models
         public string NicNo { get; set; }
         public string Address { get; set; }
         public string ContactNo { get; set; }
+        public string Purpose { get; set; }
+        public long DepartmentId { get; set; }
+
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime CreatedDate { get; set; }
+        public DateTime VisitDate { get; set; }
+        public int SeqId { get; set; }
+        public string VisitorToken { get; set; }
+        public bool IsWorkDone { get; set; }
+        public string Progress { get; set; }
     }
 }

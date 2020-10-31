@@ -52,7 +52,7 @@ namespace LetterRepository.api.Models.Repository {
                         department.ForEach (a => {
                             list.Add (new Pair {
                                 Id = a.Id.ToString (),
-                                    Value = a.DepartmentCode + "[" + a.DepartmentName + "]"
+                                    Value = a.DepartmentCode + " [" + a.DepartmentName + "]"
                             });
                         });
                     } else {

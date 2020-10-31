@@ -49,11 +49,9 @@ export class VisitorsviewComponent implements OnInit {
   }
 
   loadDetails(): void {
-    if (this.departnemtId > 0) {
       this.spinner.show();
       this.filter = (this.filter === '') ? 'null' : this.filter;
-      const url = 'Visitor/0/' + this.pageSize + '/' + this.filter + '/' + this.departnemtId + '/'
-        + this.frmDate.toDateString() + '/' + this.toDate.toDateString();
+      const url =`Visitor/0/${this.pageSize}/${this.filter}/${this.departnemtId}/${this.frmDate.toDateString()}/${this.toDate.toDateString()}`;
       this.commonService.httpCllaUrl(url)
         .subscribe((data) => {
           this.initData(data);
@@ -64,15 +62,10 @@ export class VisitorsviewComponent implements OnInit {
             this.tost.Danger({ message: error });
           }
         );
-    }
   }
 
   findData() {
-    if (this.departnemtId > 0) {
-      this.loadDetails();
-    } else {
-      this.tost.Danger({ message: 'Department not selected...!' });
-    }
+    this.loadDetails();
   }
 
   initData(data: any) {

@@ -33,6 +33,12 @@ export class CommonService {
     }, {
       formid: 1004
       , control: 'Visitor'
+    },{
+      formid: 1005
+      , control: 'Visit'
+    },{
+      formid: 1006
+      , control: 'Department/purpose'     
     }
     ];
     const frm = forms.filter(a => a.formid === parseInt(formId, 10));
@@ -138,7 +144,7 @@ export class CommonService {
       );
   }
 
-  httpPost(Obj: any, formId: number, id: number) {
+  httpPost(Obj: any, formId: number, id: any) {
     this.getToken();
     const httpOptions = {
       headers: new HttpHeaders({

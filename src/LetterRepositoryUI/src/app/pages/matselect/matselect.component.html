@@ -1,8 +1,8 @@
 <mat-form-field>
   <mat-select [formControl]="frmctrlMatselect" placeholder="{{placeholder}}" (selectionChange)="OnValueChanged()"
-    #selectId>
+    #selectId [disabled]="isReadOnly">
     <mat-option>
-      <ngx-mat-select-search [formControl]="frmCtrlFilterCtrl" [noEntriesFoundLabel]="'No matching results found'">
+      <ngx-mat-select-search placeholderLabel="Search {{placeholder}}" [formControl]="frmCtrlFilterCtrl" [noEntriesFoundLabel]="'No matching results found'">
       </ngx-mat-select-search>
     </mat-option>
 

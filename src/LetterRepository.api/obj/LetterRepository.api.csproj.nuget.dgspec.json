@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj": {}
+    "D:\\Personal\\WORK\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj": {}
   },
   "projects": {
-    "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj": {
+    "D:\\Personal\\WORK\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj",
+        "projectUniqueName": "D:\\Personal\\WORK\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj",
         "projectName": "LetterRepository.api",
-        "projectPath": "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj",
-        "packagesPath": "C:\\Users\\raguv\\.nuget\\packages\\",
-        "outputPath": "d:\\Works\\Other\\SOS\\SmartOffice\\src\\LetterRepository.api\\obj\\",
+        "projectPath": "D:\\Personal\\WORK\\SmartOffice\\src\\LetterRepository.api\\LetterRepository.api.csproj",
+        "packagesPath": "C:\\Users\\RaguDev\\.nuget\\packages\\",
+        "outputPath": "D:\\Personal\\WORK\\SmartOffice\\src\\LetterRepository.api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\raguv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\RaguDev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -78,7 +81,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

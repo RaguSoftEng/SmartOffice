@@ -16,33 +16,27 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-6">
           <div class="card">
             <div class="card-body">
               <fieldset>
                 <form [formGroup]='frmDepartment'>
                   <div class="row">
-                    <div class="col-sm-6">
-                      <div class="row">
-                        <div class="col-md-8">
-                          <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Department code" formControlName="Departmentcode"
-                              name="DepartmentCode" [(ngModel)]="department.DepartmentCode"
-                              [errorStateMatcher]="matcher" required>
-                          </mat-form-field>
-                        </div>
-                      </div>
+                    <div class="col-md-8">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Department code" formControlName="Departmentcode"
+                          name="DepartmentCode" [(ngModel)]="department.DepartmentCode" [errorStateMatcher]="matcher"
+                          required>
+                      </mat-form-field>
                     </div>
-                    <div class="col-sm-6">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Department name" type="text" formControlName="DepartmentName"
-                              name="DepartmentName" [(ngModel)]="department.DepartmentName"
-                              [errorStateMatcher]="matcher" required>
-                          </mat-form-field>
-                        </div>
-                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Department name" type="text" formControlName="DepartmentName"
+                          name="DepartmentName" [(ngModel)]="department.DepartmentName" [errorStateMatcher]="matcher"
+                          required>
+                      </mat-form-field>
                     </div>
                   </div>
                   <div class="row">
@@ -56,6 +50,50 @@
                   </div>
                 </form>
               </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header" style="border-bottom: 1px solid #eeeeee;">
+              <h5 class="card-title" style="font-weight: bold;">Purpose</h5>
+            </div>
+            <div class="card-body" style="height: 100%;">
+              <div class="row" style="height: 90%">
+                <table class="table table-hover table-sm fixed_header">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="font-size: 13px;font-weight: 500;width:70%">Parameter value</th>
+                      <th style="width: 24%"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let listvalue of listvalueArray; let last = last;let i = index;">
+                      <tr>
+                        <td>{{i+1}}</td>
+                        <td style="font-size: 12px;">
+                          <input [(ngModel)]="listvalueArray[i].Value" class="form-control" type="text"
+                            [disabled]="!listvalueArray[i].IsEdit" />
+                        </td>
+                        <td style="text-align: right">
+                          <a class="btn-a" *ngIf="listvalueArray[i].IsEdit"
+                            (click)="updateListValue(listvalueArray[i])" role="button">
+                            <i class="fa fa-save"></i> Save
+                          </a>
+                          <a class="btn-a" *ngIf="!listvalueArray[i].IsEdit"
+                            (click)="listvalueArray[i].IsEdit = true" role="button">
+                            <i class="fa fa-edit"></i> Edit
+                          </a>
+                          <a class="btn-a" *ngIf="last" role="button" (click)="addNewRow(listvalueArray[i])">
+                            <i class="fa fa-plus fa-lg"></i> Add
+                          </a>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

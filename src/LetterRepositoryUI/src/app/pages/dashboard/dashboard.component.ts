@@ -5,6 +5,11 @@ import { CommonService } from 'app/common/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { dateFormat } from 'highcharts';
+import * as Highcharts from 'highcharts';
+import exporting from 'highcharts/modules/exporting';
+import offline from 'highcharts/modules/offline-exporting';
+exporting(Highcharts);
+offline(Highcharts);
 
 @Component({
   selector: 'app-dashboard',
@@ -47,7 +52,7 @@ export class DashboardComponent implements OnInit {
 
   getPendinWorksByDepartment() {
     this.spinner.show();
-    const url = 'Visitor/pendingWorks/' + this.pendingWorks.DepartmentId;
+    const url = 'Visit/pendingWorks/' + this.pendingWorks.DepartmentId;
     this.commonService.httpCllaUrl(url)
       .subscribe((data) => {
         this.initPendingWorksData(data);
@@ -65,7 +70,7 @@ export class DashboardComponent implements OnInit {
   }
 
   removeFinishedWork(id: any) {
-    const newData = this.pendingWorks.dataSource.filter(e => e.Id != id);
+    const newData = this.pendingWorks.dataSource.filter(e => e.ObId != id);
     this.initPendingWorksData(newData);
   }
 
@@ -82,7 +87,7 @@ export class DashboardComponent implements OnInit {
     this.spinner.show();
     let enddate= new Date(this.DepVisCnt.EndDate);
     enddate = new Date(enddate.setDate(enddate.getDate()+1));
-    const url = 'Visitor/chart/' + this.DepVisCnt.DepartmentId + '/' + this.DepVisCnt.FilterType +
+    const url = 'Visit/chart/' + this.DepVisCnt.DepartmentId + '/' + this.DepVisCnt.FilterType +
       '/' + this.DepVisCnt.FromDate.toDateString() + '/' + enddate.toDateString();
     this.commonService.httpCllaUrl(url)
       .subscribe((data) => {
@@ -169,7 +174,7 @@ export class DashboardComponent implements OnInit {
 
   getDepartmentWisePendingWorksCount() {
     this.spinner.show();
-    const url = 'Visitor/pendingWorksChart';
+    const url = 'Visit/pendingWorksChart';
     this.commonService.httpCllaUrl(url)
       .subscribe((data) => {
         this.initDepPendWorksChart(data);
@@ -236,8 +241,8 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  updateWorkStatus(id: Number) {
-    const url = 'Visitor/worksStatus/' + id;
+  updateWorkStatus(id: string) {
+    const url = 'Visit/worksStatus/' + id;
     this.commonService.httpPostByUrl(url)
       .subscribe((data) => {
         this.removeFinishedWork(id);

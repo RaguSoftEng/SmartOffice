@@ -59,6 +59,9 @@ export class MatselectComponent implements OnInit, AfterViewInit, OnDestroy, Con
   @Input()
   default = '-------- None --------';
 
+  @Input()
+  isReadOnly = false;
+
   @Output()
   SelectedValueChanged: EventEmitter<any> = new EventEmitter<any>();
 
