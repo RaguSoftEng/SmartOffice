@@ -1,0 +1,146 @@
+<section class="byPageSection" style="height: 95%;">
+  <div class="container-fluid" style="margin-top: 2%;height: 98%;">
+    <div class="row h-100">
+      <div class="col-sm-3" style="background-color: #fafafa; padding-top: 5%;height: 95%;">
+        <div class="row">
+          <div class="col-sm-12">
+            <app-matselect
+              placeholder="Department"
+              [listId]="1001"
+              [(ngModel)]="departnemtId"
+              (SelectedValueChanged)="departnemtId = $event"
+              [defaultOn]="true"
+              [hideDefaultAfterSelect]="false"
+              default="----- All Department -----"
+            >
+            </app-matselect>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field>
+              <input
+                matInput
+                [matDatepicker]="pickerfrom"
+                placeholder="From"
+                [(ngModel)]="frmDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerfrom"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerfrom></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6">
+            <mat-form-field>
+              <input
+                matInput
+                [matDatepicker]="pickerTo"
+                placeholder="To"
+                [(ngModel)]="toDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerTo"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [(ngModel)]="filterType"
+            >
+              <mat-radio-button class="example-radio-button" [value]="1">
+                All
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button" [value]="2">
+                Work Done
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button" [value]="3">
+                Pending
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <a
+              class="btn-a col-sm-3"
+              id="btnUpd"
+              style="color: #0a0a0a"
+              role="button"
+              (click)="findData()"
+            >
+              <i class="fa fa-search fa-lg"></i>&nbsp;Find
+            </a>
+            <button
+              *ngIf="isPrint"
+              class="btn-a col-sm-3 border-0 bg-transparent"
+              printTitle="{{report.fileName}}"
+              [useExistingCss]="true"
+              printSectionId="print-section"
+              ngxPrint
+            >
+              <i class="fa fa-print fa-lg"></i>&nbsp;print
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9 h-100">
+        <div class="col-md-12 h-100" style="overflow-y: auto;">
+          <div *ngIf="!isPrint" style="margin-top: 30%; margin-left: 40%">
+            No reults found...!
+          </div>
+          <div class="card h-100" *ngIf="isPrint" id="print-section">
+            <div class="card-header">
+              <h5 class="card-title" style="text-align: center;color: #0a0a0a;">{{report.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted col-3">From : {{report.from}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted col-3">To : {{report.toDate}}</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+
+                <table
+                  class="table table-hover table-sm fixed_header"
+                  matSort
+                  (matSortChange)="sortData($event)"
+                >
+                  <thead>
+                    <tr>
+                      <ng-container *ngFor="let col of details.Columns">
+                        <th
+                          style="font-size: 13px; font-weight: 500"
+                          *ngIf="col.IsVisible"
+                          mat-sort-header="{{ col.ColumnName }}"
+                        >
+                          {{ col.DisplayName }}
+                        </th>
+                      </ng-container>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let rowData of dataSource">
+                      <tr>
+                        <ng-container *ngFor="let col of details.Columns">
+                          <td style="font-size: 12px" *ngIf="col.IsVisible">
+                            {{ rowData | Columns: col.ColumnName }}
+                          </td>
+                        </ng-container>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

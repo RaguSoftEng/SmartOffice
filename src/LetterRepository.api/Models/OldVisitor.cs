@@ -7,7 +7,8 @@ namespace LetterRepository.api.Models
     public class OldVisitor
     {
         [BsonId]
-        public ObjectId ObId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ObId { get; set; }
         public long Id { get; set; }
         public int Title { get; set; }
         public string FullName { get; set; }

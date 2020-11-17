@@ -25,6 +25,7 @@ export class VisitorsviewComponent implements OnInit {
   frmDate = new Date();
   toDate = new Date(new Date().setDate(new Date().getDate() + 1));
   filter = 'null';
+  filterType = 1;
 
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -49,19 +50,20 @@ export class VisitorsviewComponent implements OnInit {
   }
 
   loadDetails(): void {
-      this.spinner.show();
-      this.filter = (this.filter === '') ? 'null' : this.filter;
-      const url =`Visitor/0/${this.pageSize}/${this.filter}/${this.departnemtId}/${this.frmDate.toDateString()}/${this.toDate.toDateString()}`;
-      this.commonService.httpCllaUrl(url)
-        .subscribe((data) => {
-          this.initData(data);
+    this.spinner.show();
+    this.filter = (this.filter === '') ? 'null' : this.filter;
+    const url = `Visitor/0/${this.pageSize}/${this.filter}/${this.departnemtId}
+      /${this.frmDate.toDateString()}/${this.toDate.toDateString()}/${this.filterType}`;
+    this.commonService.httpCllaUrl(url)
+      .subscribe((data) => {
+        this.initData(data);
+        this.spinner.hide();
+      },
+        (error) => {
           this.spinner.hide();
-        },
-          (error) => {
-            this.spinner.hide();
-            this.tost.Danger({ message: error });
-          }
-        );
+          this.tost.Danger({ message: error });
+        }
+      );
   }
 
   findData() {

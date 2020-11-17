@@ -216,9 +216,9 @@ namespace LetterRepository.api.Models.Repository
             try
             {
                 dynamic result = new List<dynamic>();
-                var visitor = await this.context.Visit                    
+                var visitor = await this.context.Visit
                     .Aggregate()
-                    .Match(x=> x.IsWorkDone == false)
+                    .Match(x => x.IsWorkDone == false)
                     .Group(
                         x => new
                         {
@@ -269,11 +269,12 @@ namespace LetterRepository.api.Models.Repository
             }
         }
 
-        public async Task<dynamic> UpdateWorksStatus(ObjectId visitId)
+        public async Task<dynamic> UpdateWorksStatus(string visitId)
         {
             try
             {
-                var update = Builders<Visit>.Update.Set(e => e.IsWorkDone, true);
+                var update = Builders<Visit>.Update.Set(e => e.IsWorkDone, true)
+                .Set(e => e.Progress, "Finished");
                 var result = await this.context.Visit.FindOneAndUpdateAsync(e => e.ObId == visitId, update);
 
                 if (result != null)
@@ -316,14 +317,15 @@ namespace LetterRepository.api.Models.Repository
                 throw;
             }
         }
-        public async Task<dynamic> Update(ObjectId id, Visit visit)
+        public async Task<dynamic> Update(string id, Visit visit)
         {
             try
             {
-                if (id != ObjectId.Empty)
+                if (id != null)
                 {
                     var update = Builders<Visit>.Update.Set(e => e.Purpose, visit.Purpose)
-                    .Set(e => e.IsWorkDone, visit.IsWorkDone);
+                    .Set(e => e.IsWorkDone, visit.IsWorkDone)
+                    .Set(e => e.Progress, visit.Progress);
                     var result = await this.context.Visit.FindOneAndUpdateAsync(e => e.ObId == id, update);
 
                     if (result != null)
@@ -508,7 +510,7 @@ namespace LetterRepository.api.Models.Repository
             }
         }
 
-        public async Task<Visit> Get(ObjectId id)
+        public async Task<Visit> Get(string id)
         {
             try
             {
@@ -547,6 +549,142 @@ namespace LetterRepository.api.Models.Repository
                 }
 
                 return result;
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public Results VisitReports(int start, int limit, string filter, long depId, DateTime frmDate, DateTime toDate, int filtertype)
+        {
+            try
+            {
+
+                long count = 0;
+                var depVisitors = new List<Visit>();
+                if (depId != 0)
+                {
+                    // count = this.context.Visit.CountDocuments(x =>
+                    //                     x.DepartmentId == depId
+                    //                     && x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
+                    //                     && ((filtertype == 1) || x.IsWorkDone == (filtertype == 2))
+                    //                  );
+                    depVisitors = this.context.Visit.Find(x =>
+                                            x.DepartmentId == depId
+                                            && x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
+                                            && ((filtertype == 1) || x.IsWorkDone == (filtertype == 2))
+                                        )
+                                        // .Skip(start)
+                                        // .Limit(limit)
+                                        .ToList();
+                }
+                else
+                {
+                    // count = this.context.Visit.CountDocuments(x =>
+                    //                     x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
+                    //                     && ((filtertype == 1) || x.IsWorkDone == (filtertype == 2))
+                    //                  );
+                    depVisitors = this.context.Visit.Find(x =>
+                                            x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
+                                            && ((filtertype == 1) || x.IsWorkDone == (filtertype == 2))
+                                        )
+                                        // .Skip(start)
+                                        // .Limit(limit)
+                                        .ToList();
+                }
+
+                var results = new List<dynamic>();
+                foreach (var depVisitor in depVisitors)
+                {
+                    var visitor = new Visitor();
+                    if (filter != "null")
+                    {
+
+                        visitor = this.context.Visitor.Find(x =>
+                            (x.Id == depVisitor.VisitorId)
+                            &&
+                            (
+                                x.FullName.Contains(filter) ||
+                                x.Address.Contains(filter) ||
+                                x.NicNo.Contains(filter) ||
+                                x.ContactNo.Contains(filter)
+                            )
+                            )
+                            .FirstOrDefault();
+                    }
+                    else
+                    {
+                        visitor = this.context.Visitor.Find(x => x.Id == depVisitor.VisitorId).FirstOrDefault();
+                    }
+
+                    var title = this.context.ListValue.Find(e => e.ListId == 4 && e.ListValueId == visitor.Title).FirstOrDefault();
+                    var fullName = "";
+                    if (title != null && title.Value != "")
+                    {
+                        fullName = title.Value + "." + visitor.FullName;
+                    }
+
+                    var department = this.context.Department.Find(x => x.Id == depVisitor.DepartmentId).FirstOrDefault();
+                    results.Add(new
+                    {
+                        FullName = fullName,
+                        NicNo = visitor.NicNo,
+                        ContactNo = visitor.ContactNo,
+                        Department = department.DepartmentName,
+                        NoOfDays = Convert.ToString((DateTime.Now - depVisitor.VisitDate).Days)
+                    });
+                }
+
+
+                var data = new Results();
+
+                data.Details = results;
+                var columns = new List<dynamic> {
+                    new {
+                    ColumnName = "FullName",
+                    DisplayName = "Name",
+                    IsVisible = true,
+                    DisplayOrder = 1
+                    },
+                    new {
+                    ColumnName = "NicNo",
+                    DisplayName = "Nic No",
+                    IsVisible = true,
+                    DisplayOrder = 4
+                    },
+                    new {
+                    ColumnName = "ContactNo",
+                    DisplayName = "Contact No",
+                    IsVisible = true,
+                    DisplayOrder = 5
+                    },
+                    new {
+                    ColumnName = "Department",
+                    DisplayName = "Department",
+                    IsVisible = true,
+                    DisplayOrder = 6
+                    }
+                };
+
+                if (filtertype == 3)
+                {
+                    columns.Add(new
+                    {
+                        ColumnName = "NoOfDays",
+                        DisplayName = "No of days",
+                        IsVisible = true,
+                        DisplayOrder = 7
+                    });
+                }
+
+                data.Columns = columns;
+
+                data.Url = "visitorsdiary";
+                data.FormId = 1004;
+                data.Count = count;
+                return data;
             }
             catch (System.Exception)
             {

@@ -40,6 +40,7 @@
     "ngx-mat-select-search": "^1.8.0",
     "ngx-pagination": "^4.1.0",
     "ngx-perfect-scrollbar": "^8.0.0",
+    "ngx-print": "^1.2.0-beta.5",
     "ngx-spinner": "^8.1.0",
     "popper.js": "^1.16.1",
     "primeicons": "^2.0.0",

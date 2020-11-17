@@ -21,22 +21,44 @@ namespace LetterRepository.api.Models.Repository
             this.validateOldVisitor();
         }
 
-        public Results Get(int start, int limit, string filter, long depId, DateTime frmDate, DateTime toDate)
+        public Results Get(int start, int limit, string filter, long depId, DateTime frmDate, DateTime toDate, int filtertype)
         {
             try
             {
 
+                long count = 0;
                 var depVisitors = new List<Visit>();
                 if (depId != 0)
                 {
+                    // count = this.context.Visit.CountDocuments(x =>
+                    //                         x.DepartmentId == depId
+                    //                         && x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
+                    //                         && ((filtertype == 1) || x.IsWorkDone == (filtertype == 2))
+                    //                     );
+
                     depVisitors = this.context.Visit.Find(x =>
-                                        x.DepartmentId == depId
-                                        && x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
-                                        ).ToList();
+                                            x.DepartmentId == depId
+                                            && x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
+                                            && ((filtertype == 1) || x.IsWorkDone == (filtertype == 2))
+                                        )
+                                        // .Skip(start)
+                                        // .Limit(limit)
+                                        .ToList();
                 }
                 else
                 {
-                    depVisitors = this.context.Visit.Find(x => x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)).ToList();
+                    // count = this.context.Visit.CountDocuments(x =>
+                    //                         x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
+                    //                         && ((filtertype == 1) || x.IsWorkDone == (filtertype == 2))
+                    //                     );
+
+                    depVisitors = this.context.Visit.Find(x =>
+                                            x.VisitDate <= toDate.Date & x.VisitDate >= frmDate.Date.AddDays(-1)
+                                            && ((filtertype == 1) || x.IsWorkDone == (filtertype == 2))
+                                        )
+                                        // .Skip(start)
+                                        // .Limit(limit)
+                                        .ToList();
                 }
 
                 var visitors = new List<Visitor>();
@@ -56,16 +78,11 @@ namespace LetterRepository.api.Models.Repository
                                 x.ContactNo.Contains(filter)
                             )
                             )
-                            //  .Skip(start)
-                            //  .Limit(limit)
                             .FirstOrDefault();
                     }
                     else
                     {
-                        visitor = this.context.Visitor.Find(x => x.Id == depVisitor.VisitorId)
-                            // .Skip(start)
-                            //  .Limit(limit)
-                            .FirstOrDefault();
+                        visitor = this.context.Visitor.Find(x => x.Id == depVisitor.VisitorId).FirstOrDefault();
                     }
 
                     var title = this.context.ListValue.Find(e => e.ListId == 4 && e.ListValueId == visitor.Title).FirstOrDefault();
@@ -84,21 +101,8 @@ namespace LetterRepository.api.Models.Repository
                 {
                     visitors = new List<Visitor>();
                 }
-                // else
-                // {
-                //     if (visitors.Count > 0)
-                //     {
-                //         visitors.ForEach(v =>
-                //         {
-                //             var title = this.context.ListValue.Find(e => e.ListId == 4 && e.ListValueId == v.Title).FirstOrDefault();
-                //             if (title != null && title.Value != "")
-                //             {
-                //                 v.FullName = title.Value + "." + v.FullName;
-                //             }
-                //         });
-                //     }
-                // }
 
+                data.Count = count;
                 data.Details = visitors;
                 data.Columns = new List<dynamic> {
                     new {

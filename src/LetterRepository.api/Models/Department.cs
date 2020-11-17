@@ -1,10 +1,13 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace LetterRepository.api.Models {
-    public class Department {
+namespace LetterRepository.api.Models
+{
+    public class Department
+    {
         [BsonId]
-        public ObjectId ObId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ObId { get; set; }
         public long Id { get; set; }
         public long ParentId { get; set; }
         public string DepartmentCode { get; set; }

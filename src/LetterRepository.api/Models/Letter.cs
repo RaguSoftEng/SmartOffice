@@ -7,7 +7,8 @@ namespace LetterRepository.api.Models
     public class Letter
     {
         [BsonId]
-        public ObjectId ObId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ObId { get; set; }
         public long Id { get; set; }
         public string LetterCode { get; set; }
         public string LetterRefNO { get; set; }

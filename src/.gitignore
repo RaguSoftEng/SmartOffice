@@ -1,3 +1,2 @@
 LetterRepositoryUI/node_modules/
-LetterRepositoryUI/dist/*
-!LetterRepositoryUI/dist/.gitkeep 
+LetterRepositoryUI/dist/

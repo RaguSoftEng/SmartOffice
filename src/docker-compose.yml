@@ -27,7 +27,7 @@ services:
 
   lettersrspapi:
       container_name: lettersrspapi
-      image: ragudev/letterrspapi:v10
+      image: ragudev/letterrspapi:12
       restart: always
       ports:
         - 5000:80
@@ -36,7 +36,7 @@ services:
 
   lettersrspui:
     container_name: lettersrspui
-    image: ragudev/lettersrspui:v11
+    image: ragudev/lettersrspui:v12
     restart: always
     environment:
       - NODE_ENV=production

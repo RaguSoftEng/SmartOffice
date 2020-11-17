@@ -1,5 +1,4 @@
 using LetterRepository.api.IRepository;
-using LetterRepository.api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +19,6 @@ namespace LetterRepository.api.Controllers
         [HttpGet("authenticate")]
         public dynamic Authenticate(string UserName, string Password)
         {
-            //[FromBody]dynamic userParam
             var user = _loginRespository.Authenticate(UserName, Password);
             return user;
         }

@@ -29,15 +29,13 @@ namespace LetterRepository.api.Controllers
         [HttpGet("{id}")]
         public async Task<Visit> Get(string id)
         {
-            var obId = (!String.IsNullOrEmpty(id))? new ObjectId(id):ObjectId.Empty;
-            return await this.visitRepository.Get(obId);
+            return await this.visitRepository.Get(id);
         }
 
         [HttpPost("{id}")]
-        public async Task<dynamic> Post([FromBody] Visit visit, [FromQueryAttribute] string id)
+        public async Task<dynamic> Post([FromBody] Visit visit, [FromRoute] string id)
         {
-            var obId = (!String.IsNullOrEmpty(id))? new ObjectId(id):ObjectId.Empty;
-            return await this.visitRepository.Update(obId, visit);
+            return await this.visitRepository.Update(id, visit);
         }
 
         [HttpGet("chart/{departmentId}/{filterType}/{frmDate}/{toDate}")]
@@ -93,8 +91,13 @@ namespace LetterRepository.api.Controllers
         [HttpPost("worksStatus/{id}")]
         public async Task<dynamic> UpdateWorksStatus(string id)
         {
-            var obId = (!String.IsNullOrEmpty(id))? new ObjectId(id):ObjectId.Empty;
-            return await this.visitRepository.UpdateWorksStatus(obId);
+            return await this.visitRepository.UpdateWorksStatus(id);
+        }
+
+        [HttpGet("{start}/{limit}/{filter}/{depId}/{frmDate}/{toDate}/{filtertype}")]
+        public Results VisitReports(int start, int limit, string filter, long depId, DateTime frmDate, DateTime toDate, int filtertype)
+        {
+            return this.visitRepository.VisitReports(start, limit, filter, depId, frmDate, toDate, filtertype);
         }
     }
 }

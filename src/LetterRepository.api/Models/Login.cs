@@ -2,8 +2,10 @@ using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace LetterRepository.api.Models {
-    public class Login {
+namespace LetterRepository.api.Models
+{
+    public class Login
+    {
         [BsonId]
         public ObjectId LoginId { get; set; }
         public User User { get; set; }

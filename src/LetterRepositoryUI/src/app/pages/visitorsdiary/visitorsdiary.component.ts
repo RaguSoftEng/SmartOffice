@@ -38,7 +38,7 @@ export class VisitorsdiaryComponent implements OnInit {
     departmentId: 0,
     frmDate: new Date(new Date().setMonth(new Date().getMonth() - 12)),
     toDate: new Date(new Date().setDate(new Date().getDate() + 1)),
-    text: "",
+    text: '',
     isWorkDone: false
   };
   visits = {
@@ -48,8 +48,8 @@ export class VisitorsdiaryComponent implements OnInit {
   purposeList = [];
 
   constructor(private serv: CommonService, private router: Router
-    , private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService,
-    private formBuilder: FormBuilder, private printer: PrinterService) {
+    ,         private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService,
+              private formBuilder: FormBuilder, private printer: PrinterService) {
     this.visitor = new Visitor();
     this.visit = new Visit();
     this.toast = new Toast();
@@ -113,15 +113,15 @@ export class VisitorsdiaryComponent implements OnInit {
   }
 
   findByNic() {
-    if (this.visitor.NicNo != undefined && this.visitor.NicNo != "") {
+    if (this.visitor.NicNo != undefined && this.visitor.NicNo != '') {
       this.spinner.show();
       const url = `Visitor/findbynic/${this.visitor.NicNo}`;
       this.serv.httpCllaUrl(url)
         .subscribe((data) => {
           if (data != undefined && data != null) {
-            this.visitor = data;
+            this.router.navigateByUrl('/visitorsdiary/1004/' + data.Id);
             this.isNewVisitor = false;
-          }else{
+          } else {
             this.isNewVisitor = true;
           }
           this.spinner.hide();
@@ -191,7 +191,7 @@ export class VisitorsdiaryComponent implements OnInit {
   newVisit(): void {
     this.visit = new Visit();
     this.isNewVisit = true;
-    this.frmVisit.get("Purpose").enable();
+    this.frmVisit.get('Purpose').enable();
   }
 
   back(): void {
@@ -199,12 +199,12 @@ export class VisitorsdiaryComponent implements OnInit {
   }
 
   loadForm($event) {
-    var frmIndex = $event.index;
+    let frmIndex = $event.index;
     if (frmIndex == 1) {
       this.isNewVisit = true;
       this.loadAllVisits();
-      this.frmVisit.get("Purpose").enable();
-      this.loadListvalues();
+      this.frmVisit.get('Purpose').enable();
+      this.loadListvalues(this.visit.DepartmentId);
     }
   }
 
@@ -214,19 +214,28 @@ export class VisitorsdiaryComponent implements OnInit {
 
   ViewButtonClicked(id) {
     this.visit = this.visits.Details.find(x => x.ObId == id);
+    this.frmVisit.patchValue({
+      Description: this.visit.Description,
+      DepartmentId: this.visit.DepartmentId.toString(),
+      Purpose: this.visit.Purpose,
+      VisitDate: this.visit.VisitDate,
+      IsWorkDone: this.visit.IsWorkDone,
+      Progress: this.visit.Progress,
+      VisitorToken: this.visit.VisitorToken
+    });
     this.isNewVisit = false;
-    this.frmVisit.get("Purpose").disable();
+    this.frmVisit.get('Purpose').disable();
   }
 
   updateVisit() {
     this.spinner.show();
     this.visit.VisitorId = this.visitor.Id;
-    this.visit.ObId = this.visit.ObId == "" ? null : this.visit.ObId;
+    this.visit.ObId = this.visit.ObId == '' ? null : this.visit.ObId;
     this.serv.httpPost(this.visit, 1005, this.visit.ObId)
       .subscribe((data) => {
         this.spinner.hide();
         this.toast.Success({ message: 'Successfully updated' });
-        this.getVisit(data["id"]);
+        this.getVisit(data['id']);
       },
         (error) => {
           this.spinner.hide();
@@ -235,7 +244,7 @@ export class VisitorsdiaryComponent implements OnInit {
   }
 
   getVisit(id) {
-    if (id != "" && id != null) {
+    if (id != '' && id != null) {
       this.spinner.show();
       this.serv.httpGetData(1005, id)
         .subscribe((data) => {
@@ -252,9 +261,10 @@ export class VisitorsdiaryComponent implements OnInit {
     }
   }
 
-  loadListvalues() {
+  loadListvalues(departmentId) {
+    if(departmentId > 0){
     this.purposeList = [];
-    const url = `Department/purposeList/${this.visit.DepartmentId}`;
+    const url = `Department/purposeList/${departmentId}`;
     this.serv.httpCllaUrl(url)
       .subscribe((data) => {
         if (data.length > 0) {
@@ -265,6 +275,7 @@ export class VisitorsdiaryComponent implements OnInit {
           this.toast.Danger({ message: error });
         }
       );
+    }
   }
 
   printToken(token) {
@@ -282,7 +293,7 @@ export class VisitorsdiaryComponent implements OnInit {
         <body onload="window.print();window.close()">
           <div style="width: 80px;height: 20px;align-items: center;text-align: center;">
             ${printContents}
-          </div>    
+          </div>
         </body>
       </html>`
     );

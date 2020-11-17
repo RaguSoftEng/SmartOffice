@@ -10,25 +10,42 @@
       </div>
     </div>
     <div class="row" style="margin-top: 20px;">
-      <div class="col-sm-6">
+      <div class="col-sm-5">
         <app-matselect placeholder="Department" [listId]="1001" [(ngModel)]="departnemtId"
           (SelectedValueChanged)="departnemtId = $event" [defaultOn]="true" [hideDefaultAfterSelect]="false"
           default="----- All Department -----">
         </app-matselect>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-1">
         <mat-form-field>
           <input matInput [matDatepicker]="pickerfrom" placeholder="From" [(ngModel)]="frmDate">
           <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
           <mat-datepicker #pickerfrom></mat-datepicker>
         </mat-form-field>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-1">
         <mat-form-field>
           <input matInput [matDatepicker]="pickerTo" placeholder="To" [(ngModel)]="toDate">
           <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
           <mat-datepicker #pickerTo></mat-datepicker>
         </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="filterType"
+        >
+          <mat-radio-button class="example-radio-button" [value]="1">
+            All
+          </mat-radio-button>
+          <mat-radio-button class="example-radio-button" [value]="2">
+            Work Done
+          </mat-radio-button>
+          <mat-radio-button class="example-radio-button" [value]="3">
+            Pending
+          </mat-radio-button>
+        </mat-radio-group>
       </div>
       <div class="col-sm-2">
         <a class="btn-a" id="btnUpd" style="color: #0a0a0a" role="button" (click)="findData()">

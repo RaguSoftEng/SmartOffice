@@ -153,7 +153,6 @@ export class CommonService {
       })
     };
     const Controller = this.getController(formId);
-    Obj.ObId = undefined;
     return this.httpClient.post(this.baseUrl + Controller + '/' + id, JSON.stringify(Obj), httpOptions)
       .pipe(
         map(res => res),

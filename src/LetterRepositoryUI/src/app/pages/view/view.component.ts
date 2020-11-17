@@ -1,10 +1,9 @@
-import { Component, OnInit, Pipe, PipeTransform, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { CommonService } from '../../common/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { Toast } from '../../common/models/toast';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-view',
@@ -145,22 +144,5 @@ export class ViewComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
     this.makpage(this.dataSource.filteredData, true);
-  }
-}
-
-@Pipe({ name: 'Columns' })
-export class ColumnsPipe implements PipeTransform {
-  transform(value: any, ColumnName: string): any[] {
-    if (value) {
-      const keyArr: any[] = Object.keys(value);
-      const dataArr = [];
-      keyArr.forEach((key: any) => {
-        if (ColumnName === key) {
-          const dt = !Number.isNaN(Date.parse(value[key])) ? formatDate(value[key], 'MM/dd/yyyy', 'en-US') : value[key];
-          dataArr.push(dt);
-        }
-      });
-      return dataArr;
-    }
   }
 }

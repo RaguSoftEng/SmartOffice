@@ -2,10 +2,13 @@ using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace LetterRepository.api.Models {
-    public class User {
+namespace LetterRepository.api.Models
+{
+    public class User
+    {
         [BsonId]
-        public ObjectId ObId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ObId { get; set; }
         public long Id { get; set; }
         public int Title { get; set; }
         public string FullName { get; set; }

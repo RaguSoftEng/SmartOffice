@@ -25,7 +25,6 @@ const customValueProvider = {
   }]
 })
 export class MatselectComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
-  // protected options: any[] = [{ Id: 1, Value: 'option1' }, { Id: 2, Value: 'option2' }, { Id: 3, Value: 'option3' }];
   public frmctrlMatselect: FormControl = new FormControl();
   public frmCtrlFilterCtrl: FormControl = new FormControl();
   public filteredoptions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
@@ -78,7 +77,10 @@ export class MatselectComponent implements OnInit, AfterViewInit, OnDestroy, Con
     if (this.listId > 0) {
       this.getListValues(this.listId, this.isaParameter);
     } else {
-      this.frmctrlMatselect.setValue((this.InitValue) ? this.InitValue.toString() : this.options[0]);
+      if (this.defaultOn) {
+        this.options.push({ Id: 0, Value: this.default });
+      }
+      this.frmctrlMatselect.setValue((this.InitValue !== undefined) ? this.InitValue.toString() : this.options[0].Id);
       this.filteredoptions.next(this.options.slice());
     }
 
@@ -87,6 +89,10 @@ export class MatselectComponent implements OnInit, AfterViewInit, OnDestroy, Con
       .subscribe(() => {
         this.filterOptions();
       });
+
+    this.frmctrlMatselect.valueChanges.subscribe(val => {
+      this.SelectedValueChanged.emit(this.frmctrlMatselect.value);
+    });
   }
 
   ngAfterViewInit() {
@@ -100,7 +106,7 @@ export class MatselectComponent implements OnInit, AfterViewInit, OnDestroy, Con
         if (this.defaultOn) {
           this.options.push({ Id: 0, Value: this.default });
         }
-        this.frmctrlMatselect.setValue((this.InitValue) ? this.InitValue.toString() : (this.defaultOn) ? 0 : this.options[0]);
+        this.frmctrlMatselect.setValue((this.InitValue) ? this.InitValue.toString() : (this.defaultOn) ? 0 : this.options[0].Id);
         this.filteredoptions.next(this.options.slice());
       },
         (error) => {
@@ -140,7 +146,7 @@ export class MatselectComponent implements OnInit, AfterViewInit, OnDestroy, Con
 
   OnValueChanged() {
     if (this.hideDefaultAfterSelect) {
-      let opt = this.options.filter(o => o.Id == 0);
+      const opt = this.options.filter(o => o.Id == 0);
       if (opt != null && opt.length > 0) {
         this.options = this.options.filter(o => o.Id != 0);
         this.filteredoptions.next(this.options.slice());
