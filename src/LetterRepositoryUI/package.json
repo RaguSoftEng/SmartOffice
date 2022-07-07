@@ -35,7 +35,7 @@
     "highcharts": "^7.2.1",
     "jquery": "^3.5.1",
     "jspdf": "^2.1.1",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "ng-thermal-print": "^0.1.6",
     "ngx-mat-select-search": "^1.8.0",
     "ngx-pagination": "^4.1.0",
